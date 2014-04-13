@@ -14,19 +14,11 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>helloworld-rs</title>
-</head>
-<body>
+<!-- Marker file indicating CDI 1.0 should be enabled -->
 
-    <p>Choose between <em>JSON</em> or <em>XML</em>:
-
-    <ul>
-    	<li><a href="rest/json">JSON</a></li>
-        <li><a href="rest/xml">XML</a></li>
-    </ul>
-</body>
-</html>
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee 
+      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>
