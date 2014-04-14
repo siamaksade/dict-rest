@@ -1,5 +1,7 @@
 package com.joker.dict.rest;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,7 +19,12 @@ public class DictResource {
     @Path("/dict")
     @Produces({ "application/json" })
     public String getDictDescription(@QueryParam("q") String text) {
-        return "{\"desc\":\"" + dictService.getDictDescription(text) + "\"}";
+        try {
+			return "{\"desc\":\"" + dictService.getDictDescription(text) + "\"}";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "{\"desc\": \"error\"}";
+		}
     }
     
     @GET
