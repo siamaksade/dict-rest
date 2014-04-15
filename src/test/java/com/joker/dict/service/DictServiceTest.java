@@ -14,6 +14,9 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.joker.dict.model.Noun;
+import com.joker.dict.model.Word;
+
 @RunWith(Arquillian.class)
 public class DictServiceTest {
 	@Inject
@@ -26,13 +29,14 @@ public class DictServiceTest {
                 .withTransitivity().as(File.class);
     	
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackages(true, DictService.class.getPackage().getName())
+                .addPackages(true, DictService.class.getPackage().getName(), Word.class.getPackage().getName())
                 .addAsLibraries(libs)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 	
 	@Test
 	public void fetchDictDesc() throws Exception {
-		String desc = service.getDictDescription("orange");
+		Noun noun = service.getDictDescription("orange");
+		System.out.println("###### " + noun);
 	}
 }
