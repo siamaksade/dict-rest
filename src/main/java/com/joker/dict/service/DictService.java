@@ -29,7 +29,7 @@ public class DictService {
 									.trim()
 									.toLowerCase()
 									.replaceAll("[^\\s\\p{Graph}]", "")
-									.replaceAll("^noun\\d(.+)edit$", "$1")
+									.replaceAll("^noun\\d?(.+)edit$", "$1")
 									.split("\\|");
 				String gender = parts[0].trim().replaceAll("(die|der|das)\\s*(.*)", "$1");
 				String noun = parts[0].trim().replaceAll("(die|der|das)\\s*(.*)", "$2");

@@ -11,6 +11,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,7 +37,8 @@ public class DictServiceTest {
 	
 	@Test
 	public void fetchDictDesc() throws Exception {
-		Noun noun = service.getDictDescription("orange");
-		System.out.println("\n\n###### " + noun);
+		Noun noun = service.getDictDescription("Pech");
+		Assert.assertNotNull(noun);
+		Assert.assertEquals("das", noun.getGender());
 	}
 }

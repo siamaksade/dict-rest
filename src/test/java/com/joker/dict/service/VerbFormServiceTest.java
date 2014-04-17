@@ -11,6 +11,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,6 +37,7 @@ public class VerbFormServiceTest {
 	@Test
 	public void fetchDictDesc() throws Exception {
 		Verb verb = service.getVerbFormenDescription("fallen");
-		System.out.println("\n\n###### " + verb);
+		Assert.assertNotNull(verb);
+		Assert.assertEquals("gefallen", verb.getPresentPerfect());
 	}
 }
