@@ -29,7 +29,7 @@ public class Noun extends Word {
 	}
 	
 	public String getDescription() {
-		return gender + " " + capitalize(text) + "(" + capitalize(plural) + ")";
+		return gender + " " + capitalize(text) + " (" + capitalize(plural) + ")";
 	}
 	
 	
