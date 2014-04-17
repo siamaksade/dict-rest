@@ -14,13 +14,12 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.joker.dict.model.Noun;
-import com.joker.dict.model.Word;
+import com.joker.dict.model.Verb;
 
 @RunWith(Arquillian.class)
-public class DictServiceTest {
+public class VerbFormServiceTest {
 	@Inject
-	private DictService service;
+	private VerbFormService service;
 	
     @Deployment
     public static WebArchive createTestArchive() {
@@ -29,14 +28,14 @@ public class DictServiceTest {
                 .withTransitivity().as(File.class);
     	
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackages(true, DictService.class.getPackage().getName(), Word.class.getPackage().getName())
+                .addPackages(true, VerbFormService.class.getPackage().getName(), Verb.class.getPackage().getName())
                 .addAsLibraries(libs)
                 .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 	
 	@Test
 	public void fetchDictDesc() throws Exception {
-		Noun noun = service.getDictDescription("orange");
-		System.out.println("\n\n###### " + noun);
+		Verb verb = service.getVerbFormenDescription("fallen");
+		System.out.println("\n\n###### " + verb);
 	}
 }
