@@ -30,6 +30,10 @@ public class Verb extends Word {
 	public String getPresentPerfect() {
 		return presentPerfect;
 	}
+	
+	public String getDescription() {
+		return present[5] + " " + "(" + present[2] + ", " + presentPerfect + ", " + past[5] + ")";
+	}
 
 	@Override
 	public String toString() {
