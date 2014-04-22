@@ -1,6 +1,7 @@
 package com.joker.dict.service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ListIterator;
 
 import org.jsoup.Jsoup;
@@ -16,7 +17,7 @@ public class VerbFormService {
 	private static final String VERB_PATTERN = "^([^\\s]+)\\s+ich(.+)du(.+)er(.+)wir(.+)ihr(.+)sie(.+)";
 	
 	public Verb getVerbFormenDescription(String text) throws IOException {
-		Document doc = Jsoup.connect(String.format(VERBFORMEN_URL, text))
+		Document doc = Jsoup.connect(String.format(VERBFORMEN_URL, URLEncoder.encode(text, "UTF-8")))
 					.timeout(5000)
 					.userAgent(Constants.USER_AGENT)
 					.get();

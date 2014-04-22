@@ -35,7 +35,7 @@ public class VerbFormServiceTest {
     }
 	
 	@Test
-	public void fetchDictDesc() throws Exception {
+	public void fetchVerbDesc() throws Exception {
 		Verb verb = service.getVerbFormenDescription("fallen");
 		Assert.assertNotNull(verb);
 		Assert.assertEquals("gefallen", verb.getPresentPerfect());
