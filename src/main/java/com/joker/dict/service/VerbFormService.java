@@ -2,6 +2,8 @@ package com.joker.dict.service;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ListIterator;
 
 import org.jsoup.Jsoup;
@@ -13,8 +15,8 @@ import com.joker.dict.util.Constants;
 
 public class VerbFormService {
 	private static final String VERBFORMEN_URL = "http://www.verbformen.de/konjugation/%s.htm";
-	
-	private static final String VERB_PATTERN = "^([^\\s]+)\\s+ich(.+)du(.+)er(.+)wir(.+)ihr(.+)sie(.+)";
+	private static final String VERB_PATTERN = "^(.+)\\s+(ich\\s+.*)$";
+	private static final List<String> PRONOUNS = Arrays.asList("ich", "du", "er", "wir", "ihr", "sie");
 	
 	public Verb getVerbFormenDescription(String text) throws IOException {
 		Document doc = Jsoup.connect(String.format(VERBFORMEN_URL, URLEncoder.encode(text, "UTF-8")))
@@ -41,14 +43,18 @@ public class VerbFormService {
 			}
 			
 			String tense = sanitize(line.replaceAll(VERB_PATTERN, "$1"));
-			
+			String [] parts = sanitize(line.replaceAll(VERB_PATTERN, "$2")).split("\\s");
 			String[] verbs = new String[6];
-			for (int i = 0; i < 6; i++) {
-				String compVerb = line.replaceAll(VERB_PATTERN, "$" + (i + 2)).trim();
-				if (compVerb.contains(" ")) {
-					verbs[i] = sanitize(compVerb.substring(compVerb.lastIndexOf(" ")));
+			int index = -1;
+			for (String part : parts) {
+				if (part.trim().isEmpty()) {
+					continue;
+				}
+				
+				if (PRONOUNS.contains(part)) {
+					index = PRONOUNS.indexOf(part);
 				} else {
-					verbs[i] = sanitize(compVerb);
+					verbs[index] = (verbs[index] == null ? part : verbs[index] + " " + part).trim();
 				}
 			}
 			
@@ -57,14 +63,14 @@ public class VerbFormService {
 			} else if ("präteritum".equals(tense)) {
 				verb.setPast(verbs);
 			} else if ("perfekt".equals(tense)) {
-				verb.setPresentPerfect(verbs[0]);
+				verb.setPresentPerfect(verbs[0].substring(verbs[0].lastIndexOf(" ")).trim());
 			}
 		}
 		
 		return verb;
 	}
 	
-	private String sanitize(String text) {
-		return text.replaceAll("[^\\p{IsAlphabetic}]", "");
+	private static String sanitize(String text) {
+		return text.replaceAll("[^\\s\\.\\-\\p{IsAlphabetic}]", "");
 	}
 }
